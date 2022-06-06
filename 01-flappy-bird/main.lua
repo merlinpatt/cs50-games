@@ -51,6 +51,8 @@ WINDOW_HEIGHT = 720
 VIRTUAL_WIDTH = 512
 VIRTUAL_HEIGHT = 288
 
+PAUSED = false
+
 local background = love.graphics.newImage('assets/images/background.png')
 local backgroundScroll = 0
 
@@ -155,8 +157,8 @@ end
 
 function love.update(dt)
     -- scroll our background and ground, looping back to 0 after a certain amount
-    backgroundScroll = (backgroundScroll + BACKGROUND_SCROLL_SPEED * dt) % BACKGROUND_LOOPING_POINT
-    groundScroll = (groundScroll + GROUND_SCROLL_SPEED * dt) % VIRTUAL_WIDTH
+    backgroundScroll = (backgroundScroll + (scrolling and BACKGROUND_SCROLL_SPEED or 0) * dt) % BACKGROUND_LOOPING_POINT
+    groundScroll = (groundScroll + (scrolling and GROUND_SCROLL_SPEED or 0) * dt) % VIRTUAL_WIDTH
 
     gStateMachine:update(dt)
 
